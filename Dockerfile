@@ -1,6 +1,6 @@
 FROM tomcat:8.0-alpine
 
-MKDIR /app
+# MKDIR /app
 
 WORKDIR /app
 
