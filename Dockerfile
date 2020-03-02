@@ -4,7 +4,7 @@ FROM tomcat:8.0-alpine
 
 WORKDIR /app
 
-COPY /var/lib/jenkins/workspace/Sample/project/target/project-1.0-RAMA.war /app
+ADD /var/lib/jenkins/workspace/Sample/project/target/project-1.0-RAMA.war /app
 
 EXPOSE 8080
 
