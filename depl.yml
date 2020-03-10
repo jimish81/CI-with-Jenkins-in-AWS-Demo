@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: "ramaimage-sha256-1"
-        image: "gcr.io/first-metric-262213/ramaimage@sha256:3a501b7cf8368f5002475e961396b61f0cbc858d6b1983dd1710678b99de4d92"
+        image: "gcr.io/first-metric-262213/ramaimage:build-6"
 ---
 apiVersion: "autoscaling/v2beta1"
 kind: "HorizontalPodAutoscaler"
