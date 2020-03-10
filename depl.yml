@@ -1,0 +1,58 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "myapp"
+  namespace: "default"
+  labels:
+    app: "myapp"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: "myapp"
+  template:
+    metadata:
+      labels:
+        app: "myapp"
+    spec:
+      containers:
+      - name: "ramaimage-sha256-1"
+        image: "gcr.io/first-metric-262213/ramaimage@sha256:3a501b7cf8368f5002475e961396b61f0cbc858d6b1983dd1710678b99de4d92"
+---
+apiVersion: "autoscaling/v2beta1"
+kind: "HorizontalPodAutoscaler"
+metadata:
+  name: "myapp-hpa-13zv"
+  namespace: "default"
+  labels:
+    app: "myapp"
+spec:
+  scaleTargetRef:
+    kind: "Deployment"
+    name: "myapp"
+    apiVersion: "apps/v1"
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: "Resource"
+    resource:
+      name: "cpu"
+      targetAverageUtilization: 80
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "myapp-service"
+  namespace: "default"
+  labels:
+    app: "myapp"
+spec:
+  ports:
+  - protocol: "TCP"
+    port: 80
+    targetPort: 9000
+  selector:
+    app: "myapp"
+  type: "LoadBalancer"
+  loadBalancerIP: ""
